@@ -1,0 +1,64 @@
+C:/Users/SeyyedAhmadRokniHoss/Documents/CA_CA2/Alu.v {1 {vlog -work work C:/Users/SeyyedAhmadRokniHoss/Documents/CA_CA2/Alu.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module Alu
+
+Top level modules:
+	Alu
+
+} {} {}} C:/Users/SeyyedAhmadRokniHoss/Documents/CA_CA2/Mux4.v {1 {vlog -work work C:/Users/SeyyedAhmadRokniHoss/Documents/CA_CA2/Mux4.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module Mux4
+
+Top level modules:
+	Mux4
+
+} {} {}} C:/Users/SeyyedAhmadRokniHoss/Documents/CA_CA2/DataPath.v {1 {vlog -work work C:/Users/SeyyedAhmadRokniHoss/Documents/CA_CA2/DataPath.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module DataPath
+
+Top level modules:
+	DataPath
+
+} {} {}} C:/Users/SeyyedAhmadRokniHoss/Documents/CA_CA2/Pc.v {1 {vlog -work work C:/Users/SeyyedAhmadRokniHoss/Documents/CA_CA2/Pc.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module Pc
+
+Top level modules:
+	Pc
+
+} {} {}} C:/Users/SeyyedAhmadRokniHoss/Documents/CA_CA2/Mem.v {1 {vlog -work work C:/Users/SeyyedAhmadRokniHoss/Documents/CA_CA2/Mem.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module Mem
+
+Top level modules:
+	Mem
+
+} {} {}} C:/Users/SeyyedAhmadRokniHoss/Documents/CA_CA2/InstMemory.v {1 {vlog -work work C:/Users/SeyyedAhmadRokniHoss/Documents/CA_CA2/InstMemory.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module InstMemory
+
+Top level modules:
+	InstMemory
+
+} {} {}} C:/Users/SeyyedAhmadRokniHoss/Documents/CA_CA2/ImmExtend.v {1 {vlog -work work C:/Users/SeyyedAhmadRokniHoss/Documents/CA_CA2/ImmExtend.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module ImmExtend
+
+Top level modules:
+	ImmExtend
+
+} {} {}} C:/Users/SeyyedAhmadRokniHoss/Documents/CA_CA2/AddAlu.v {1 {vlog -work work C:/Users/SeyyedAhmadRokniHoss/Documents/CA_CA2/AddAlu.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module AddAlu
+
+Top level modules:
+	AddAlu
+
+} {} {}} C:/Users/SeyyedAhmadRokniHoss/Documents/CA_CA2/Mux2.v {1 {vlog -work work C:/Users/SeyyedAhmadRokniHoss/Documents/CA_CA2/Mux2.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module Mux2
+
+Top level modules:
+	Mux2
+
+} {} {}}
