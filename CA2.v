@@ -71,10 +71,13 @@ endmodule
 
 
 module CA2 (clk,rst);
-input clk,rst;
+    output Done;
+    input clk,rst;
+    input[31:0] array;
+    output[31:0] max_of_array;
     wire imm_op, alu_op, reg_we, mem_we, m4_1_cnt, m4_2_cnt, m2_1_cnt, m2_2_cnt, m2_3_cnt,m2_4_cnt,Op,Zero,F3,SignBit;
     DataPath Dp(.clk(clk),.rst(rst),.imm_op(imm_op),.alu_op(alu_op),.reg_we(reg_we),.mem_we(mem_we),.m4_1_cnt(m4_1_cnt),.m4_2_cnt(m4_2_cnt),.m2_1_cnt(m2_1_cnt)
             ,.m2_2_cnt(m2_2_cnt),.m2_3_cnt(m2_3_cnt),.m2_4_cnt(m2_4_cnt),.Op(Op),.F3(F3),.Zero(Zero),.SignBit(SignBit));
     Controller C(.Op(Op),.F3(F3),.Zero(Zero),.SignBit(SignBit),.AluIn(alu_op),.PcIn(m4_1_cnt),.ImmSel(imm_op),.RegWrite(reg_we),.MemWrite(mem_we),.ResultSel(m4_2_cnt)
-    ,.WdSel(m2_2_cnt),.SignSel(m2_3_cnt),.AluSel(m2_1_cnt),.Wd2Sel(m2_4_cnt));
+    ,.WdSel(m2_2_cnt),.SignSel(m2_3_cnt),.AluSel(m2_1_cnt),.Wd2Sel(m2_4_cnt),.Done(Done));
 endmodule
