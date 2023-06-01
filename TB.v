@@ -1,12 +1,11 @@
 module TB ();
-    reg clk,rst;
-    wire done;
-    CA2 ca(clk,rst,done);
+    reg clk=0,rst=0;
+    CA2 ca(clk,rst);
     always 
         #10 clk=~clk;
     initial begin
         #10 rst=1;
-        #30 rst=0;
-        #1000 
+        #5 rst=0;
+        #1000 $stop;
     end
 endmodule

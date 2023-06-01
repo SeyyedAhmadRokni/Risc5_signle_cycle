@@ -2,7 +2,8 @@ module ImmExtend(op, inp, out);
     input [2:0] op;
     input [31:0]inp;
     output reg [31:0] out;
-    always @(op)begin
+    always @(op, inp)begin
+        out = 32'b0;
         case(op)
             3'b000 : out = {{20{inp[31]}}, inp[31:20]};
             3'b001 : out = {{20{inp[31]}}, inp[31:25], inp[11:7]};

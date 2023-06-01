@@ -4,7 +4,8 @@ module Alu(op, a, b, out , zero);
     output reg [31:0] out;
     output zero;
     assign zero = (out == 32'b0);
-    always @(op)begin
+    always @(op, a, b)begin
+        out = 32'b0;
         case (op)
             3'b000: out = a+b;
             3'b001: out = a-b;
