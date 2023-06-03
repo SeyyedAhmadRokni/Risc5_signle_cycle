@@ -7,11 +7,11 @@ parameter SUB =3'b001;
     assign AluIn = AluOp == 2'b0 ? ADD : AluOp == 2'b01 ? SUB : AluOp == 2'b10 ? F3 : 3'bx;
 endmodule
 
-module PcController (Jump,BrOp,Zero,SignBit,PcIn);
-    input Jump, Zero, SignBit;
+module PcController (Jump,BrOp,IsJalr,Zero,SignBit,PcIn);
+    input Jump, Zero, SignBit, IsJalr;
     input[1:0] BrOp;
-    output PcIn;
-    assign PcIn = (BrOp == 2'b0 & Zero) | Jump | (BrOp == 2'b01 & ~Zero) | (BrOp == 2'b10 & SignBit) | (BrOp == 2'b11 & ~SignBit);
+    output[1:0] PcIn;
+    assign PcIn = IsJalr ? 2'b10 : ((BrOp == 2'b0 & Zero) | Jump | (BrOp == 2'b01 & ~Zero) | (BrOp == 2'b10 & SignBit) | (BrOp == 2'b11 & ~SignBit)) ? 2'b01 : 2'b0;
 endmodule
 
 module SignControl (SignBit,SignSel);
@@ -44,15 +44,16 @@ parameter LU_I_OP =7'b0001101;
     input Zero, SignBit;
     input [2:0] F3;
     input [6:0] Op;
-    output PcIn, WdSel, RegWrite, MemWrite, SignSel, AluSel, Wd2Sel;
-    output[1:0] ResultSel;
+    output WdSel, RegWrite, MemWrite, SignSel, AluSel, Wd2Sel;
+    output[1:0] ResultSel, PcIn;
     output[2:0] ImmSel, AluIn;
     wire[1:0] AluOp, BrOp;
-    wire Jump, IsBType, IsIType;
+    wire Jump, IsBType, IsIType, IsJalr;
     AluController AC(.AluOp(AluOp),.F3(F3),.AluIn(AluIn));
-    PcController PC(.Jump(Jump),.BrOp(BrOp),.Zero(Zero),.SignBit(SignBit),.PcIn(PcIn));
+    PcController PC(.Jump(Jump),.BrOp(BrOp),.IsJalr(IsJalr),.Zero(Zero),.SignBit(SignBit),.PcIn(PcIn));
     SignControl SC(.SignSel(SignSel),.SignBit(SignBit));
     assign Jump = Op == JAL_OP;
+    assign IsJalr = Op == JALR_OP;
     assign IsIType = Op == LW_OP | Op == ADD_I_OP | Op == XOR_I_OP | Op == OR_I_OP | Op == SLT_I_OP | Op == JALR_OP;
     assign IsBType = Op == BEQ_OP | Op == BNE_OP | Op == BLT_OP | Op == BGE_OP;
     assign BrOp = Op == BEQ_OP ? BEQ : Op == BNE_OP ? BNE : Op == BLT ? BNE : Op == BGE_OP ? BGE : 2'bxx;
@@ -79,8 +80,8 @@ module CA2 (clk,rst);
     wire[2:0] F3, imm_op, alu_op;
     wire[1:0] m4_2_cnt;
 
-    DataPath Dp(.clk(clk),.rst(rst),.imm_op(imm_op),.alu_op(alu_op),.reg_we(reg_we),.mem_we(mem_we),.m2_5_cnt(m2_5_cnt),.m4_2_cnt(m4_2_cnt),.m2_1_cnt(m2_1_cnt)
+    DataPath Dp(.clk(clk),.rst(rst),.imm_op(imm_op),.alu_op(alu_op),.reg_we(reg_we),.mem_we(mem_we),.m4_1_cnt(m4_1_cnt),.m4_2_cnt(m4_2_cnt),.m2_1_cnt(m2_1_cnt)
             ,.m2_2_cnt(m2_2_cnt),.m2_3_cnt(m2_3_cnt),.m2_4_cnt(m2_4_cnt),.Op(Op),.F3(F3),.Zero(Zero),.SignBit(SignBit));
-    Controller C(.Op(Op),.F3(F3),.Zero(Zero),.SignBit(SignBit),.AluIn(alu_op),.PcIn(m2_5_cnt),.ImmSel(imm_op),.RegWrite(reg_we),.MemWrite(mem_we),.ResultSel(m4_2_cnt)
+    Controller C(.Op(Op),.F3(F3),.Zero(Zero),.SignBit(SignBit),.AluIn(alu_op),.PcIn(m4_1_cnt),.ImmSel(imm_op),.RegWrite(reg_we),.MemWrite(mem_we),.ResultSel(m4_2_cnt)
     ,.WdSel(m2_2_cnt),.SignSel(m2_3_cnt),.AluSel(m2_1_cnt),.Wd2Sel(m2_4_cnt));
 endmodule
