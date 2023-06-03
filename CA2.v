@@ -67,6 +67,7 @@ parameter LU_I_OP =7'b0001101;
     assign ResultSel = Op == LW_OP ? 2'b01 : Op == SLT_I_OP ? 2'b10 : 2'b00;
     assign AluSel = IsIType | Op == SW_OP;
     assign Wd2Sel = Op == LU_I_OP;
+    assign WdSel = Op == JALR_OP | Op == JAL_OP;
 endmodule
 
 
