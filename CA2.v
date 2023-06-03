@@ -53,11 +53,11 @@ module Controller (Op,F3,Zero,SignBit,AluIn,PcIn,ImmSel,RegWrite,MemWrite,Result
     assign IsJalr = Op == JALR_OP;
     assign IsIType = Op == LW_OP | Op == ADD_I_OP | Op == XOR_I_OP | Op == OR_I_OP | Op == SLT_I_OP | Op == JALR_OP;
     assign IsBType = Op == BEQ_OP | Op == BNE_OP | Op == BLT_OP | Op == BGE_OP;
-    assign BrOp = Op == BEQ_OP ? 3'b000 : Op == BNE_OP ? 3'b001 : Op == BLT ? 3'b010 : Op == BGE_OP ? 3'b011 : 3'b100;
+    assign BrOp = Op == BEQ_OP ? 3'b000 : Op == BNE_OP ? 3'b001 : Op == BLT_OP ? 3'b010 : Op == BGE_OP ? 3'b011 : 3'b100;
     assign AluOp = Op == R_TYPE_OP ? 2'b10 : (Op == LW_OP | Op == ADD_I_OP | Op == JALR_OP | Op == SW_OP) ? 2'b00 : 
             (Op == SLT_I_OP | IsBType) ? 2'b01 : 2'b11;
     assign ImmSel = IsIType ? 3'b000 :
-            Op == SW_OP ? 3'b001 : IsBType ? 3'b010 : Op == JAL_OP ? 3'b011 : Op == LU_I_OP ? 3'b100 : 3'101;
+            Op == SW_OP ? 3'b001 : IsBType ? 3'b010 : Op == JAL_OP ? 3'b011 : Op == LU_I_OP ? 3'b100 : 3'b101;
     assign RegWrite = Op == R_TYPE_OP | IsIType | Op == LU_I_OP;
     assign MemWrite = Op == SW_OP;
     assign ResultSel = Op == LW_OP ? 2'b01 : Op == SLT_I_OP ? 2'b10 : 2'b00;
