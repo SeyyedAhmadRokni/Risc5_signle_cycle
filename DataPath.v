@@ -1,5 +1,5 @@
 module DataPath(clk, rst, imm_op, alu_op, reg_we, mem_we, m4_1_cnt, m4_2_cnt, m2_1_cnt,
-                m2_2_cnt, m2_3_cnt, m2_4_cnt, Zero, SignBit, F3, Op);
+                m2_2_cnt, m2_3_cnt, m2_4_cnt, Zero, SignBit, F3, F7, Op);
     input clk, rst, reg_we, mem_we, m2_1_cnt, m2_2_cnt, m2_3_cnt, m2_4_cnt;
     input [1:0] m4_2_cnt, m4_1_cnt;
     input [2:0] imm_op, alu_op;
@@ -7,7 +7,7 @@ module DataPath(clk, rst, imm_op, alu_op, reg_we, mem_we, m4_1_cnt, m4_2_cnt, m2
     wire [31:0] reg_wd, add_1_out, add_2_out, m2_3_out;
     output Zero, SignBit;
     output[2:0] F3;
-    output[6:0] Op;
+    output[6:0] Op, F7;
 
     Pc pc(clk, rst, m4_1_out, pc_out);
     InstMemory im(rst, pc_out, inst);
@@ -19,12 +19,13 @@ module DataPath(clk, rst, imm_op, alu_op, reg_we, mem_we, m4_1_cnt, m4_2_cnt, m2
     Mux4 m4_2(alu_out, mem_out, m2_3_out, 32'b0, m4_2_cnt, m4_2_out);
     Mux2 m2_1(reg_rd2, imm_ext_out, m2_1_cnt, m2_1_out);
     Mux2 m2_2(m4_2_out, add_2_out, m2_2_cnt, m2_2_out);
-    Mux2 m2_3(32'b0, 32'b1, m2_3_cnt, m2_3_out);
+    Mux2 m2_3(32'b0, {31'b0,1'b1}, m2_3_cnt, m2_3_out);
     Mux2 m2_4(m2_2_out, imm_ext_out, m2_4_cnt, reg_wd);
     AddAlu add1(pc_out, imm_ext_out, add_1_out);
     AddAlu add2(pc_out, 32'd4, add_2_out);
 
     assign SignBit = alu_out[31];
     assign F3 = inst[14:12];
+    assign F7 = inst[31:25];
     assign Op = inst[6:0];
 endmodule
