@@ -7,8 +7,10 @@ module RegMem(clk, rst, we, a1, a2, a3, wd, rd1, rd2);
     assign rd1 = regmem[a1];
     assign rd2 = regmem[a2];
     always @(posedge clk, posedge rst)begin
-        if (rst)
+        if (rst) begin
             regmem[0] = 32'b0;
+            regmem[8] = 32'b0;//for head of array input
+        end
         if (clk & we)
             regmem[a3] = wd;      
     end

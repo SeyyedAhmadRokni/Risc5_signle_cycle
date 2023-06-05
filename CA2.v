@@ -9,7 +9,7 @@ endmodule
 
 module PcController (Jump,BrOp,IsJalr,Zero,SignBit,PcIn);
     input Jump, Zero, SignBit, IsJalr;
-    input[1:0] BrOp;
+    input[2:0] BrOp;
     output[1:0] PcIn;
     assign PcIn = IsJalr ? 2'b10 : ((BrOp == 3'b0 & Zero) | Jump | (BrOp == 3'b001 & ~Zero) | (BrOp == 3'b010 & SignBit) | (BrOp == 3'b011 & ~SignBit)) ? 2'b01 : 2'b00;
 endmodule
@@ -58,7 +58,7 @@ module Controller (Op,F3,Zero,SignBit,AluIn,PcIn,ImmSel,RegWrite,MemWrite,Result
             (Op == SLT_I_OP | IsBType) ? 2'b01 : 2'b11;
     assign ImmSel = IsIType ? 3'b000 :
             Op == SW_OP ? 3'b001 : IsBType ? 3'b010 : Op == JAL_OP ? 3'b011 : Op == LU_I_OP ? 3'b100 : 3'b101;
-    assign RegWrite = Op == R_TYPE_OP | IsIType | Op == LU_I_OP;
+    assign RegWrite = Op == R_TYPE_OP | IsIType | Op == LU_I_OP | IsJalr | Op == JAL_OP;
     assign MemWrite = Op == SW_OP;
     assign ResultSel = Op == LW_OP ? 2'b01 : Op == SLT_I_OP ? 2'b10 : 2'b00;
     assign AluSel = IsIType | Op == SW_OP;
