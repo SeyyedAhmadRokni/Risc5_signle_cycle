@@ -11,7 +11,7 @@ module RegMem(clk, rst, we, a1, a2, a3, wd, rd1, rd2);
             regmem[0] = 32'b0;
             regmem[8] = 32'b0;//for head of array input
         end
-        if (clk & we)
+        if (clk & we & a3 != 5'b0)
             regmem[a3] = wd;      
     end
 
