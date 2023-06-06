@@ -6,6 +6,6 @@ module TB ();
     initial begin
         #10 rst=1;
         #5 rst=0;
-        #1000 $stop;
+        #2500 $stop;
     end
 endmodule
