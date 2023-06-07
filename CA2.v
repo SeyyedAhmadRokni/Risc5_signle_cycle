@@ -81,7 +81,7 @@ module Controller (Op,F3,F7,Zero,SignBit,AluIn,PcIn,ImmSel,RegWrite,MemWrite,Res
     assign IsJalr = Op == JALR_OP;
     assign IsIType = Op == LW_OP | Op == I_TYPE_ARITHMATIC_OP | Op == JALR_OP;
     assign AluOp = Op == R_TYPE_OP ? 3'b010 : (Op == LW_OP | (Op == I_TYPE_ARITHMATIC_OP & F3 == ADD_I_3) | Op == JALR_OP | Op == SW_OP) ? 3'b000 : 
-            (IsSltI | Op == B_TYPE_OP) ? 2'b001 : Op == I_TYPE_ARITHMATIC_OP ? 3'b100 : 3'b111;
+                   (IsSltI | Op == B_TYPE_OP) ? 3'b001 : Op == I_TYPE_ARITHMATIC_OP ? 3'b100 : 3'b111;
     assign ImmSel = IsIType ? 3'b000 :
             Op == SW_OP ? 3'b001 : Op == B_TYPE_OP ? 3'b010 : Op == JAL_OP ? 3'b011 : Op == LU_I_OP ? 3'b100 : 3'b101;
     assign RegWrite = Op == R_TYPE_OP | IsIType | Op == LU_I_OP | IsJalr | Op == JAL_OP;
